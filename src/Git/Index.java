@@ -1,11 +1,11 @@
-package com.company;
-
+package Git;
 import java.io.*;
 import java.util.HashMap;
 
 public class Index {
-    HashMap<String, String> map;
     final String INDEX_PATH = "index";
+    HashMap<String, String> map;
+    boolean haveReadFile = false;
 
     public Index() {
         map = new HashMap<>();
@@ -16,16 +16,18 @@ public class Index {
     }
 
     public void getMapFromFile(File file) {
-        HashMap<String, String> m = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.equals("")) continue;
-                String hash = line.substring(line.length()-40);
-                String filename = line.substring(0, line.length()-43);
-                m.put(filename, hash);
+                String hash = line.substring(line.length()-39);
+                String filename = line.substring(0, line.length()-42);
+                System.out.println(hash);
+                System.out.println(filename);
+                map.put(filename, hash);
+                System.out.println(map.get(filename));
             }
-            map = m;
+            haveReadFile = true;
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -33,11 +35,12 @@ public class Index {
 
     public void setFile() {
         try {
+        	new File(INDEX_PATH).delete();
             PrintWriter writer = new PrintWriter(INDEX_PATH);
             for (String key : map.keySet()) {
                 writer.println(key + " : " + map.get(key));
             }
-            writer.println("");
+//            writer.println("");
             writer.close();
         } catch(Exception e) {
             System.out.println(e.toString());
@@ -52,20 +55,24 @@ public class Index {
     }
 
     public void remove(String filename) {
-        if(!map.containsKey(filename)) return;
+        if(!map.containsKey(filename)) {
+        	System.out.println("No key found for " + filename);
+        	System.out.println("Have read file: " + haveReadFile);
+        	return;
+        };
 
-            String path = "objects/" + map.get(filename);
-            System.out.println(path);
-            File file = new File(path);
+        String path = "objects/" + map.get(filename);
+        System.out.println(path);
+        File file = new File(path);
 
-            if (file.delete()) {
-                System.out.println("File deleted successfully");
-            }
-            else {
-                System.out.println("Failed to delete the file");
-            }
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        }
+        else {
+            System.out.println("Failed to delete the file");
+        }
 
-            map.remove(filename);
-            setFile();
+        map.remove(filename);
+        setFile();
     }
 }

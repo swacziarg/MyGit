@@ -1,4 +1,4 @@
-package com.company;
+package Git;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
@@ -81,3 +81,4 @@ public class Blob {
     }
 
 }
+
