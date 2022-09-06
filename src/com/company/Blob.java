@@ -17,6 +17,7 @@ public class Blob {
             String content = readFile(filename, StandardCharsets.US_ASCII);
             String mySHA1 = getSHA1(content);
             hash = mySHA1;
+            new File("objects").mkdirs();
             File nF = new File("objects/" + mySHA1);
 
             copyFileUsingStream(f, nF);

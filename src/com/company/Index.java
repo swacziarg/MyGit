@@ -1,7 +1,6 @@
 package com.company;
 
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.HashMap;
 
 public class Index {
@@ -9,23 +8,36 @@ public class Index {
     final String INDEX_PATH = "index";
 
     public Index() {
+        map = new HashMap<>();
         File f = new File(INDEX_PATH);
         if(f.exists() && !f.isDirectory()) {
-            map = getMapFromFile();
-        } else {
-            map = new HashMap<>();
+            getMapFromFile(f);
         }
     }
 
-    public HashMap<String, String> getMapFromFile() {
-        return null;
+    public void getMapFromFile(File file) {
+        HashMap<String, String> m = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if(line.equals("")) continue;
+                String hash = line.substring(line.length()-40);
+                String filename = line.substring(0, line.length()-43);
+                m.put(filename, hash);
+            }
+            map = m;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     public void setFile() {
         try {
             PrintWriter writer = new PrintWriter(INDEX_PATH);
-            writer.println("The first line");
-            writer.println("The second line");
+            for (String key : map.keySet()) {
+                writer.println(key + " : " + map.get(key));
+            }
+            writer.println("");
             writer.close();
         } catch(Exception e) {
             System.out.println(e.toString());
@@ -37,5 +49,23 @@ public class Index {
         String hash = b.hash;
         map.put(filename, hash);
         setFile();
+    }
+
+    public void remove(String filename) {
+        if(!map.containsKey(filename)) return;
+
+            String path = "objects/" + map.get(filename);
+            System.out.println(path);
+            File file = new File(path);
+
+            if (file.delete()) {
+                System.out.println("File deleted successfully");
+            }
+            else {
+                System.out.println("Failed to delete the file");
+            }
+
+            map.remove(filename);
+            setFile();
     }
 }

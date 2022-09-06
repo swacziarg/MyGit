@@ -6,5 +6,9 @@ public class Main {
 	// write your code here
         Index i = new Index();
         i.add("test.txt");
+        i.add("test2.txt");
+        i.remove("test.txt");
+        i.remove("test2.txt");
+
     }
 }
