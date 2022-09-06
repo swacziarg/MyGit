@@ -9,12 +9,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Blob {
-    public Blob(String filename, String folderPath) {
+    String hash;
+
+    public Blob(String filename) {
         File f = new File(filename);
         try {
             String content = readFile(filename, StandardCharsets.US_ASCII);
             String mySHA1 = getSHA1(content);
-            File nF = new File(folderPath + "/" + mySHA1);
+            hash = mySHA1;
+            File nF = new File("objects/" + mySHA1);
 
             copyFileUsingStream(f, nF);
         } catch(Exception e) {
