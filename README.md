@@ -12,7 +12,7 @@
 - `setFile()`: set our hashmap to the `index` file
 
 ### Example use case
-```
+```java
 Index i = new Index();
 i.init();
 i.add("test.txt");
