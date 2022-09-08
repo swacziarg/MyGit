@@ -1,6 +1,6 @@
 ## MyGit Methods
 
-`Index` class has a few main methods[^1]
+`Index` class has a few main methods
 
 ##### Primary
 - `init()`: initialize `index` file inside `objects` directory
@@ -21,5 +21,3 @@ i.remove("test.txt");
 
 ## About
 Made by Aariz
-
-[^1]: all methods are void
