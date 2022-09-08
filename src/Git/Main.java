@@ -7,7 +7,8 @@ public class Main {
 		Index i = new Index();
 //        i.add("test.txt");
        
-        i.remove("test.txt");
+        i.add("test.txt");
+        i.add("test2.txt");
 
 	}
 
