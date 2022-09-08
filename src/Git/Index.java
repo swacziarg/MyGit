@@ -9,10 +9,21 @@ public class Index {
 
     public Index() {
         map = new HashMap<>();
-        File f = new File(INDEX_PATH);
-        if(f.exists() && !f.isDirectory()) {
-            getMapFromFile(f);
-        }
+    
+    }
+    
+    public void init() {
+    	try {
+	        new File("objects").mkdirs();
+	        File f = new File(INDEX_PATH);
+	        if(f.exists() && !f.isDirectory()) {
+	            getMapFromFile(f);
+	        } else {
+	        	f.createNewFile();
+	        }
+    	} catch (Exception e) {
+    		System.out.println(e.toString());
+    	}
     }
 
     public void getMapFromFile(File file) {
