@@ -1,6 +1,8 @@
 package Git;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Index {
     final String INDEX_PATH = "index";
@@ -48,10 +50,14 @@ public class Index {
         try {
         	new File(INDEX_PATH).delete();
             PrintWriter writer = new PrintWriter(INDEX_PATH);
-            for (String key : map.keySet()) {
-                writer.println(key + " : " + map.get(key));
-            }
-//            writer.println("");
+            
+            TreeMap<String, String> sorted = new TreeMap<>();
+            sorted.putAll(map);
+            
+            for (Map.Entry<String, String> entry : sorted.entrySet()) {
+                writer.println(entry.getKey() + " : " + entry.getValue());  
+	        }
+            
             writer.close();
         } catch(Exception e) {
             System.out.println(e.toString());

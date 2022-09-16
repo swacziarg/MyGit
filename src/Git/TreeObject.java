@@ -41,10 +41,8 @@ public class TreeObject {
 	
 	private String makeToOneString() {
 		String allData = "";
-		for (String fileData : data)
-		{
-			allData += fileData + "\n";
-			
+		for(int i = 0; i < data.size(); i++) {
+			allData += data.get(i) + (i<data.size()-1 ? "\n" : "");
 		}
 		return allData;
 	}
@@ -55,7 +53,7 @@ public class TreeObject {
 		
 		for (String dataPiece : data)
 		{
-			pw.append(dataPiece);
+			pw.write(dataPiece);
 			
 		}
 		pw.close();
