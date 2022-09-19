@@ -4,13 +4,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Index i = new Index();
-		i.init();
-       
-       i.add("testFile.txt");
-//        i.add("test2.txt");
-//		i.remove("test.txt");
-
+		Commit c1 = new Commit("objects/child", "this is a summary", "my author", null);
+		try {
+			c1.writeFile();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
