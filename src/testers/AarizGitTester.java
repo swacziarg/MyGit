@@ -1,4 +1,4 @@
-package Git;
+package testers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +18,10 @@ import java.util.Scanner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import Git.Blob;
+import Git.Index;
+import Git.TreeObject;
 
 class AarizGitTester {
 	
@@ -56,7 +60,7 @@ class AarizGitTester {
 		index.delete();
 		//deleting objects folder w/ all contents  inside
 		File objFolder = new File("objects");
-		objFolder.delete();
+		objFolder.delete(); 
 
 	}	
 
