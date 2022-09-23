@@ -12,7 +12,7 @@ public class TreeObject {
 	String dataSha;
 	public TreeObject(ArrayList<String> data) throws FileNotFoundException
 	{
-	 data = new ArrayList<String>();
+	 //data = new ArrayList<String>();
 	 this.data = data;
 	 dataSha = encryptThisString(makeToOneString());
 	 writeDataFile();
@@ -23,11 +23,12 @@ public class TreeObject {
 	
 	public static String encryptThisString(String input)
 	{
-		try {	         
+		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-1");	      
 			byte[] messageDigest = md.digest(input.getBytes());	     
 			BigInteger no = new BigInteger(1, messageDigest);         
 			String hashtext = no.toString(16); 
+			System.out.print(hashtext);
 			while (hashtext.length() < 32) {
 				hashtext = "0" + hashtext;
 			}	       
@@ -42,7 +43,7 @@ public class TreeObject {
 	private String makeToOneString() {
 		String allData = "";
 		for(int i = 0; i < data.size(); i++) {
-			allData += data.get(i) + (i<data.size()-1 ? "\n" : "");
+			allData += data.get(i)+ (i<data.size()-1 ? "\n" : "");
 		}
 		return allData;
 	}
@@ -53,7 +54,7 @@ public class TreeObject {
 		
 		for (String dataPiece : data)
 		{
-			pw.write(dataPiece);
+			pw.write(dataPiece+"\n");
 			
 		}
 		pw.close();

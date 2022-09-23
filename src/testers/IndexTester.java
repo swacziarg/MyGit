@@ -2,17 +2,9 @@ package testers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.AfterAll;
@@ -21,12 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import Git.Blob;
 import Git.Index;
-import Git.TreeObject;
 
-class AarizGitTester {
-	
-	
-	
+class IndexTester {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		//create test folder, objects folder in test, three txt files
@@ -64,16 +52,6 @@ class AarizGitTester {
 
 	}	
 
-	
-	// **************TESTS
-	@Test
-	void testBlobContents() throws IOException
-	{
-		Blob b = new Blob("testFile.txt");
-		File f = new File("objects/2f3c6b82e94acbefbdcc4ac1d00fcfb416892355");
-		assertTrue(f.exists());
-		
-	}
 	
 	@Test
 	void testAllIndex() throws IOException {
@@ -120,31 +98,5 @@ class AarizGitTester {
 				assertFalse(s.hasNext());//if removed all, would be empty
 				
 	}
-	@Test
-	void treeObjTest() throws IOException {
-		//create arraylist, add elements (blobs and trees)
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
-		list.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
-		list.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
-		list.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
-		list.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
-		
-		TreeObject theTree = new TreeObject(list);
-		File file = new File("objects/dd4840f48a74c1f97437b515101c66834b59b1be");
-		assertTrue(file.exists());
-		
-		//Check if all lines exist and are correct 
-		Scanner scanner = new Scanner(file);
-		assertEquals(scanner.nextLine(), "blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
-		assertEquals(scanner.nextLine(), "blob : 01d82591292494afd1602d175e165f94992f6f5f");
-		assertEquals(scanner.nextLine(), "blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
-		assertEquals(scanner.nextLine(), "tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
-		assertEquals(scanner.nextLine(), "tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
-		file.delete();
-	}
-
-	
-
 
 }
